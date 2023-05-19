@@ -1,0 +1,17 @@
+{
+  "name": "cool-folks-only",
+  "version": "1.0.0",
+  "description": "small app that will ask users to create a user account with a password to access restricted content",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ReactJS",
+    "express",
+    "node",
+    "passportJS"
+  ],
+  "author": "Varun Malaviya",
+  "license": "ISC"
+}
