@@ -9,9 +9,9 @@ app.use(express.json())
 
 const port = process.env.PORT || 5000
 
-app.get('/', (req,res) => {
-    res.send('<h1>This is the server!</h1>')
-})
+app.use('/', require('./routes/index'))
+
+app.use('/users', require('./routes/users'))
 
 app.listen(port, () => {
     console.log(`The server is running on port: ${port}`)
