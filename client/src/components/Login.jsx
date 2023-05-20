@@ -1,9 +1,8 @@
-import { useState } from "react"
-import { Container, Form, Button } from "react-bootstrap"
+import { Container, Form, Button } from "react-bootstrap";
 
-function Register(){
-
-    //state variables for tracking user input for username and password
+function Login() {
+    
+    //user entered username and password
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -17,7 +16,7 @@ function Register(){
         console.log(password)
     }
 
-    function handleSubmit(){
+    function handleLogin(){
         console.log('Form submitted!', username, password)
         setPassword('')
         setUsername('')
@@ -25,24 +24,24 @@ function Register(){
 
     return(
         <Container className="p-5 d-flex flex-column justify-content-center align-items-center">
-            <h1 className="mb-5">Please register for an account</h1>
+            <h1 className="mb-5">Please login to continue</h1>
             <Form className="d-flex flex-column justify-content-center align-items-center">
                 <Form.Group className="mb-3" controlId="formUsername">
-                    <Form.Label>Select a Username: </Form.Label>
-                    <Form.Control type="text" placeholder="Enter a username" value={username} onChange={changeUsername}/>
+                    <Form.Label>Username: </Form.Label>
+                    <Form.Control type="email" placeholder="Enter username" value={username} onChange={changeUsername}/>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Enter a password: </Form.Label>
-                    <Form.Control type="password" placeholder="Enter a password" value={password} onChange={changePassword} />
+                    <Form.Label>Password: </Form.Label>
+                    <Form.Control type="password" placeholder="Enter password" value={password} onChange={changePassword} />
                 </Form.Group>
 
-                <Button variant="primary" type="button" onClick={handleSubmit}>
-                    Submit
+                <Button variant="primary" type="button" onClick={handleLogin}>
+                    Log In
                 </Button>
             </Form>
         </Container>
     )
 }
 
-export { Register }
+export { Login }
