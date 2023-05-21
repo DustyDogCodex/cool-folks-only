@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Container, Form, Button, Alert } from "react-bootstrap"
+import axios from 'axios'
 
 function Register(){
 
@@ -19,6 +20,20 @@ function Register(){
         setPassword(e.target.value)
     }
 
+    //function to send a post request with user info
+    async function sendForm(user,pass){
+        return await axios.post('http://localhost:5000/users/register', {
+                username: user,
+                password: pass
+            },{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
+
     //function to handle submit. Will throw alerts if username or password are empty and prevent form submission.
     function handleSubmit(){
         if(!username || !password){
@@ -26,7 +41,9 @@ function Register(){
         
             password.length == 0 ? setPasswordAlert(true) : setPasswordAlert(false)
         } else {
-            console.log('Form submitted!', username, password)
+            sendForm(username,password)
+            .then(() => console.log('Form submitted!', username, password))             
+            
             setPassword('')
             setUsername('')
             setUserAlert(false)
