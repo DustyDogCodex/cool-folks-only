@@ -20,7 +20,7 @@ function Register(){
         setPassword(e.target.value)
     }
 
-    //function to send a post request with user info
+    //function to send a post request with user info for registering an account
     async function sendForm(user,pass){
         return await axios.post('http://localhost:5000/users/register', {
                 username: user,
@@ -43,11 +43,12 @@ function Register(){
         } else {
             sendForm(username,password)
             .then(() => console.log('Form submitted!', username, password))             
-            
-            setPassword('')
-            setUsername('')
-            setUserAlert(false)
-            setPasswordAlert(false)
+            .then(() => {
+                setPassword('')
+                setUsername('')
+                setUserAlert(false)
+                setPasswordAlert(false)
+            })         
         }
     }
 
