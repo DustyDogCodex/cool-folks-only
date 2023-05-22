@@ -12,6 +12,10 @@ function Register(){
     const [userAlert, setUserAlert] = useState(false)
     const [passwordAlert, setPasswordAlert] = useState(false)
 
+    //state variables for successfull and failed registration
+    const [success, setSuccess] = useState(false)
+    const [fail, setFail] = useState(false)
+
     function changeUsername(e){
         setUsername(e.target.value)
     }
@@ -30,7 +34,15 @@ function Register(){
                     'Content-Type': 'application/json'
                 }
             })
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res)
+                const data = res.data
+                data == 'success' ? setSuccess(true) : setFail(true)
+            })
+            .then(() => setTimeout(() => {
+                setSuccess(false)
+                setFail(false)
+            }, 3000))
             .catch(err => console.log(err))
     }
 
@@ -71,6 +83,12 @@ function Register(){
                 <Button variant="primary" type="button" onClick={handleSubmit}>
                     Register
                 </Button>
+                <Alert className="mt-3" variant="success" show={success}>
+                    User account successfully created!
+                </Alert>
+                <Alert className="mt-3" variant="warning" show={fail}>
+                    User name already exists! Please choose a different username!
+                </Alert>
             </Form>
         </Container>
     )

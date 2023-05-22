@@ -19,11 +19,11 @@ router.post('/register', (req,res) => {
             if(user){
                 //username already exists in our database
                 //in this case, registeration fails and we direct them to the failed register page
-                res.redirect('http://localhost:5173/register/fail')
+                res.send('fail')
             } else {
                 //new username, in which case we direct them to the successful registration page
                 console.log(req.body, 'hello from the post route!')
-                res.redirect('http://localhost:5173/register/success')
+                res.send('success')
             }
         })
 })
