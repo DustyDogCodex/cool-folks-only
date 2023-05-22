@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const bcrypt = require('bcryptjs')
 
 //User model
 const User = require('../models/Users')
@@ -22,10 +23,18 @@ router.post('/register', (req,res) => {
                 res.send('fail')
             } else {
                 //new username, in which case we direct them to the successful registration page
-                console.log(req.body, 'hello from the post route!')
-                res.send('success')
+                const newUser = new User({
+                    username: req.body.username,
+                    password: req.body.password
+                })
+                    console.log(req.body, newUser)
+                    res.send('success')
+                }
             }
-        })
-})
+        )
+    }
+)
+
+
 
 module.exports = router

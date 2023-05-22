@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     }, 
-})
+},{ collection: 'user-info'})
 
 //creating a model from our UserSchema
 const User = mongoose.model('User', UserSchema)
