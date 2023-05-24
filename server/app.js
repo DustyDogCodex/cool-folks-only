@@ -25,10 +25,12 @@ const app = express()
 passport.use(
   new LocalStrategy(async(username, password, done) => {
     try {
-      const user = await User.findOne({ username: username });
-      if (!user) {
-        return done(null, false, { message: "Incorrect username" });
-      };
+        //check to see if user exists
+        const user = await User.findOne({ username: username });
+        if (!user) {
+            return done(null, false, { message: "Incorrect username" });
+        };
+        //compare given password with stored password
         bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
             // passwords match! log user in
