@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const passport = require('passport')
-const localStrategy = require('passport-local')
+const localStrategy = require('passport-local').Strategy
 const sessions = require('express-sessions')
 const mongoose = require('mongoose')
 require('dotenv').config()
@@ -10,6 +10,7 @@ const app = express()
 
 //Database configuration
 const db_string = process.env.MONGODB_CONNECTION_STRING
+
 //connecting to database
 mongoose.connect(db_string, { useNewUrlParser: true })
 .then(() => console.log('Connection to database established!'))

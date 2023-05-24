@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Container, Form, Button, Alert } from "react-bootstrap"
+import { redirect } from 'react-router-dom'
 import axios from 'axios'
 
 function Register(){
@@ -8,7 +9,7 @@ function Register(){
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    //state varibles for toggling alerts for missing username or password
+    //state varibles for toggling alerts username or password is empty
     const [userAlert, setUserAlert] = useState(false)
     const [passwordAlert, setPasswordAlert] = useState(false)
 
@@ -25,6 +26,8 @@ function Register(){
     }
 
     //function to send a post request with user info for registering an account
+    //if account creation is successfull, server will respond with a 'success' message. if it fails then server will respond with a fail message. 
+    //if a success message is received, react router will redirect user to the login page.
     async function sendForm(user,pass){
         return await axios.post('http://localhost:5000/users/register', {
                 username: user,
@@ -39,28 +42,39 @@ function Register(){
                 const data = res.data
                 data == 'success' ? setSuccess(true) : setFail(true)
             })
-            .then(() => setTimeout(() => {
-                setSuccess(false)
-                setFail(false)
-            }, 3000))
+            .then(() =>
+                setTimeout(() => {
+                    setSuccess(false)
+                    setFail(false)
+                    }, 3000)
+                )   
             .catch(err => console.log(err))
     }
+
+    //function to check for successfull form submission and then redirecting to login page
+   /*  async function loader(){
+        console.log(success)
+        if(success){
+           return redirect('/login')
+        }
+    } */ 
 
     //function to handle submit. Will throw alerts if username or password are empty and prevent form submission.
     function handleSubmit(){
         if(!username || !password){
+            //throw no username alert if username left empty
             username.length == 0 ? setUserAlert(true) : setUserAlert(false)
-        
+            
+            //throw no password alert if password left empty
             password.length == 0 ? setPasswordAlert(true) : setPasswordAlert(false)
         } else {
-            sendForm(username,password)
-            .then(() => console.log('Form submitted!', username, password))             
-            .then(() => {
-                setPassword('')
-                setUsername('')
-                setUserAlert(false)
-                setPasswordAlert(false)
-            })         
+            sendForm(username,password)           
+                .then(() => {
+                    setPassword('')
+                    setUsername('')
+                    setUserAlert(false)
+                    setPasswordAlert(false)
+                })         
         }
     }
 
