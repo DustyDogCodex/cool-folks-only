@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Container, Form, Button, Alert } from "react-bootstrap"
-import { redirect } from 'react-router-dom'
+/* import { redirect } from 'react-router-dom' */
 import axios from 'axios'
 
 function Register(){
@@ -29,7 +29,7 @@ function Register(){
     //if account creation is successfull, server will respond with a 'success' message. if it fails then server will respond with a fail message. 
     //if a success message is received, react router will redirect user to the login page.
     async function sendForm(user,pass){
-        return await axios.post('http://localhost:5000/users/register', {
+        return await axios.post('http://localhost:5000/register', {
                 username: user,
                 password: pass
             },{
